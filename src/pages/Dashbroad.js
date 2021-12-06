@@ -14,14 +14,15 @@ const Dashbroad = () => {
   }
   return (
     <div >
-        {authentication.isLoggin === true  ?
+        {/* {authentication.isLoggin === true  ? */}
       <Layout style={{ paddingTop: '10px' }} >
     
         <Layout>
           <LeftSlider onSelectedLayoutIndexChange={onSelectedLayoutIndexChange} />
           <MainLayout layoutSelectedIndex={layoutSelectedIndex} />
         </Layout>
-      </Layout> : history.push("/") }
+      </Layout> 
+      {/* : history.push("/") } */}
     </div>
   )
 }

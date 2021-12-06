@@ -15,24 +15,26 @@ const LoginPage = () => {
   const dispatch = useDispatch()
   const authentication = useSelector((state) => state.authentication);
   const loginHandle = (userLogin) => {
-    dispatch(login(userLogin))
-      .then(() => {
-        history.push("/dashbroad");
-      })
-      .catch((err) => {
+    history.push("/dashbroad");
+    // dispatch(login(userLogin))
+    //   .then(() => {
+    //     history.push("/dashbroad");
+    //   })
+    //   .catch((err) => {
 
-        Modal.error({
-          icon: <StopOutlined />,
-          title: <strong className="text-danger">Bạn không có quyền truy cập!</strong>,
-          content: `Vui lòng liên hệ với admin nếu bạn chưa được cấp quyền.`
-        });
-      });
+    //     Modal.error({
+    //       icon: <StopOutlined />,
+    //       title: <strong className="text-danger">Bạn không có quyền truy cập!</strong>,
+    //       content: `Vui lòng liên hệ với admin nếu bạn chưa được cấp quyền.`
+    //     });
+    //   });
   };
 
 
   const onFinish = (userLogin) => {
     console.log(userLogin)
-    loginHandle(userLogin)
+    // loginHandle(userLogin)
+    history.push("/dashbroad");
 
 
 
