@@ -13,6 +13,7 @@ export const getProducts = () => {
         return axios
             .get(API_PRODUCT)
             .then((resp) => {
+                console.log(resp.data)
                 dispatch(createAction(STORE_PRODUCTS, resp.data));
             })
             .catch((err) => console.error(err));

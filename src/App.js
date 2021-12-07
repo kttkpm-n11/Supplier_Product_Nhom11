@@ -23,22 +23,22 @@ function App() {
       />
     );
   });
-  const authentication = useSelector((state) => state.authentication);
-    const dispatch = useDispatch();
-    const [isLoading, setisLoading] = useState(true);
-    useEffect(() => {
-        dispatch(getTokenWhenRefreshPage()).then(() => {
-            setisLoading(false);
-        });
+  // const authentication = useSelector((state) => state.authentication);
+  //   const dispatch = useDispatch();
+  //   const [isLoading, setisLoading] = useState(true);
+  //   useEffect(() => {
+  //       dispatch(getTokenWhenRefreshPage()).then(() => {
+  //           setisLoading(false);
+  //       });
        
-    }, [dispatch]);
+  //   }, [dispatch]);
   return (
     <Router>
       <ConfigProvider locale={viVN}>
-      {isLoading && <Loading location="Loading...." /> }
+      {/* {isLoading && <Loading location="Loading...." /> } */}
         <div className="App">
         
-        {authentication.isLoggin && <Header />}
+        {/* {authentication.isLoggin && <Header />} */}
             <Switch>{maproutes}</Switch>
        
         </div> 

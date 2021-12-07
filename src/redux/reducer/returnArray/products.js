@@ -1,11 +1,13 @@
+import { STORE_PRODUCTS } from "../../constants/constants";
+
 const initial = [];
 
 const reducer = (state = initial, action) => {
     const { type, data } = action;
     switch (type) {
-        // case value:
+        case STORE_PRODUCTS:
 
-        //      break;
+        return data;
 
         default:
             return state;
