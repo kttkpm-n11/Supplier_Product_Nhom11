@@ -7,11 +7,8 @@ const LeftSlider = ({layoutSelectedIndex,onSelectedLayoutIndexChange}) => {
   const { SubMenu } = Menu
   // const [layoutSelectedKey, setlayoutSelectedKey] = useState(layoutSelectedIndex)
   const listIconOfSubMenu =[ <UserOutlined/>,<CommentOutlined />,<NotificationOutlined />,<ControlOutlined />]
-  const subMenu = [{ key: "user", title: 'Tài khoản', items: [{ key: 1, content: 'Danh sách người dùng' }, { key: 2, content: 'Người dùng bị chặn' }, { key: 3, content: 'Thống kê' }] },
-  { key: "message", title: 'Tin nhắn', items: [{ key: 4, content: 'Thống kê tổng quan' }, { key: 5, content: 'a' }, { key: 6, content: 'a' }] },
-  { key: "system", title: 'Hệ thống', items: [{ key: 7, content: 'Báo cáo từ người dùng' }, { key: 8, content: 'a' }, { key: 9, content: 'a' }] },
-  { key: "admin", title: 'Quản trị viên', items: [{ key: 10, content: 'Danh sách quản trị viên' }, { key: 11, content: 'Nhật ký hoạt động' }, { key: 12, content: 'a' }] }
-    
+  const subMenu = [{ key: "product", title: 'Sản phẩm', items: [{ key: 1, content: 'Danh sách sản phẩm' }] },
+  { key: "supplier", title: 'Nhà cung cấp', items: [{ key: 2, content: 'Danh sách nhà cung cấp' }] },
 
 ]
   return (
@@ -19,7 +16,7 @@ const LeftSlider = ({layoutSelectedIndex,onSelectedLayoutIndexChange}) => {
       <Menu
         mode="inline"
         defaultSelectedKeys={['1']}
-        defaultOpenKeys={['user']}
+        defaultOpenKeys={['product']}
         style={{ height: '100%', borderRight: 0 }}
       >
        

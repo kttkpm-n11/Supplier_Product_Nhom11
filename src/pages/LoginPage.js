@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StopOutlined } from "@ant-design/icons";
 
 const LoginPage = () => {
+
     const fullWidthStyle = { margin: "10px", height: "150px" };
     let history = useHistory();
     const dispatch = useDispatch();
@@ -102,3 +103,5 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+ 
