@@ -1,6 +1,5 @@
 import axios from "axios";
 import { API_SIGN_IN, API_SIGN_OUT } from "../redux/constants/api";
-// import cookieClient from 'react-cookie'
 
 function LoginService() {}
 
