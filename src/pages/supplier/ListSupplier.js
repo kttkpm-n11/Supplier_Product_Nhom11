@@ -128,9 +128,39 @@ const ListSupplier = () => {
             &nbsp;Lưu thay đổi
         </Button>]
 
+    //Add Supplier Modal
+
+    const [isShowAddModal, setisShowAddModal] = useState(false)
+
+    const handleCancelAddModal = () => {
+        setisShowAddModal(false)
+    };
+    const showModalAdd = (supplier) => {
+        setisShowAddModal(true)
+    };
+    const onFormSubmitAddModal = (values) => {
+
+        console.log(values)
+
+    };
+    const footerOfAddModal = [
+        <Button key="back" onClick={() => handleCancelAddModal()}>
+
+            Thoát
+        </Button>,
+
+        <Button form="AddForm" icon={<i className="fas fa-save"></i>}
+            type="primary"
+            key="submit" htmlType="submit"
+        >
+            &nbsp;Thêm nhà cung cấp
+        </Button>]
+
+
     return (
-        <div>
-            <Table rowKey="id" columns={columns} dataSource={listSupplierFromStore} pagination={false} scroll={{ y: 850 }} />
+        <div >
+            <div className="text-end" ><Button onClick={() => showModalAdd()} type="primary" icon={<i className="fas fa-plus-circle"></i>}> &nbsp;Thêm nhà cung cấp</Button></div>
+            <Table style={{ marginTop: '15px' }} rowKey="id" columns={columns} dataSource={listSupplierFromStore} pagination={false} scroll={{ y: 850 }} />
             {checkSelectModal && <Modal closable={false}
                 style={{ top: 20 }}
                 title={titleOfModal}
@@ -162,12 +192,51 @@ const ListSupplier = () => {
                         <Form.Item label="Số điện thoại:" name="phone">
                             <Input />
                         </Form.Item>
-                       
+
 
 
 
                     </Form>
                     <Button type="primary" icon={<i className="fas fa-ban"></i>} danger style={{ width: "100%" }} > &nbsp; Xoá sản phẩm</Button>
+                </div>
+            </Modal>}
+
+
+            {isShowAddModal && <Modal closable={false}
+                style={{ top: 20 }}
+                title={<strong>Thêm nhà cung cấp</strong>}
+                visible={isShowAddModal}
+                footer={footerOfAddModal}
+            >
+                <div>
+
+
+                    <Form id="AddForm"
+                        labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 20 }}
+                        layout="horizontal"
+                        onFinish={onFormSubmitAddModal}
+                    >
+
+
+
+                        <Form.Item label="Tên :" name="name">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Email:" name="email">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Địa chỉ: " name="address">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Số điện thoại:" name="phone">
+                            <Input />
+                        </Form.Item>
+
+
+
+
+                    </Form>
                 </div>
             </Modal>}
         </div>

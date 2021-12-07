@@ -65,7 +65,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 32342349,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -78,7 +78,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 89877,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -91,7 +91,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 343223,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -104,7 +104,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 423423,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -117,7 +117,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 323423,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -130,7 +130,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 432423,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -143,7 +143,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 3234234,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -156,7 +156,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 45252,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -169,7 +169,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 32524,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -182,7 +182,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 425221,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -195,7 +195,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 1233,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -208,7 +208,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 1234,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -221,7 +221,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 3123,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -234,7 +234,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 123124,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -247,7 +247,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 1233123,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -260,7 +260,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 78774,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -273,7 +273,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 57563,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -286,7 +286,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 5684,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -299,7 +299,7 @@ const ListProduct = () => {
             "supplierId": 4
         },
         {
-            "id": 3,
+            "id": 5866583,
             "name": "product name 3",
             "price": 0.0,
             "discount": 0.0,
@@ -312,7 +312,7 @@ const ListProduct = () => {
             "supplierId": 3
         },
         {
-            "id": 4,
+            "id": 5865864,
             "name": "product name 4",
             "price": 0.0,
             "discount": 0.0,
@@ -429,9 +429,40 @@ const ListProduct = () => {
             &nbsp;Lưu thay đổi
         </Button>]
 
+    //Add Product Modal
+
+    const [isShowAddModal, setisShowAddModal] = useState(false)
+
+    const handleCancelAddModal = () => {
+
+        setisShowAddModal(false)
+    };
+    const showModalAdd = (supplier) => {
+        setisShowAddModal(true)
+    };
+    const onFormSubmitAddModal = (values) => {
+        values.createdAt = values.createdAt.format("YYYY-MM-DD HH:mm:ss")
+
+        console.log(values)
+
+    };
+    const footerOfAddModal = [
+        <Button key="back" onClick={() => handleCancelAddModal()}>
+
+            Thoát
+        </Button>,
+
+        <Button form="AddForm" icon={<i className="fas fa-save"></i>}
+            type="primary"
+            key="submit" htmlType="submit"
+        >
+            &nbsp;Thêm nhà cung cấp
+        </Button>]
     return (
         <div>
-            <Table rowKey="id" columns={columns} dataSource={listProductFromStore} pagination={false} scroll={{ y: 850 }} />
+            <div className="text-end" ><Button onClick={() => showModalAdd()} type="primary" icon={<i className="fas fa-plus-circle"></i>}> &nbsp;Thêm sản phẩm </Button></div>
+
+            <Table style={{ marginTop: '15px' }} rowKey="id" columns={columns} dataSource={listProductFromStore} pagination={false} scroll={{ y: 850 }} />
             {checkSelectModal && <Modal closable={false}
                 style={{ top: 20 }}
                 title={titleOfModal}
@@ -450,12 +481,12 @@ const ListProduct = () => {
                     >
 
 
-                     
+
                         <Form.Item label="Tên sản phẩm:" name="name">
                             <Input />
                         </Form.Item>
                         <Form.Item label="Giá:" name="price">
-                            <Input  />
+                            <Input />
                         </Form.Item>
                         <Form.Item label="Khuyến mãi:" name="discount">
                             <Input />
@@ -479,14 +510,71 @@ const ListProduct = () => {
                             <Input type="hidden" />
                         </Form.Item>
                         <Form.Item name="active" label="Trạng thái" >
-                            <Switch defaultChecked={selectedProduct.active}/>
+                            <Switch defaultChecked={selectedProduct.active} />
                         </Form.Item>
 
 
 
 
                     </Form>
-                    <Button type="primary" icon={<i className="fas fa-ban"></i>} danger style={{width:"100%"}} > &nbsp; Xoá sản phẩm</Button>
+                    <Button type="primary" icon={<i className="fas fa-ban"></i>} danger style={{ width: "100%" }} > &nbsp; Xoá sản phẩm</Button>
+                </div>
+            </Modal>}
+
+
+            {isShowAddModal && <Modal closable={false}
+                style={{ top: 20 }}
+                title={<strong>Thêm sản phẩm</strong>}
+                visible={isShowAddModal}
+                footer={footerOfAddModal}
+            >
+                <div>
+
+
+                    <Form id="AddForm"
+                        labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 20 }}
+                        layout="horizontal"
+                        onFinish={onFormSubmitAddModal}
+                    >
+
+
+
+                        <Form.Item label="Tên sản phẩm:" name="name">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Giá:" name="price">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Khuyến mãi:" name="discount">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Thuế:" name="tax">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Nguyên liệu:" name="material">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Nguồn gốc:" name="origin">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Thông tin:" name="description">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Ngày tạo:" name="createdAt">
+                            <DatePicker format={dateFormat} />
+                        </Form.Item>
+                        <Form.Item label="" name="id" style={{ display: 'none' }}>
+                            <Input type="hidden" />
+                        </Form.Item>
+                        <Form.Item name="active" label="Trạng thái" >
+                            <Switch defaultChecked={selectedProduct.active} />
+                        </Form.Item>
+
+
+
+
+                    </Form>
                 </div>
             </Modal>}
         </div>
