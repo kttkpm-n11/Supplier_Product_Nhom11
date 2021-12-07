@@ -25,16 +25,58 @@ export const getProductById = (productId) => {
         return axios
             .get(API_PRODUCT + `/${productId}`)
             .then((resp) => {
+                // console.log(resp.data.product)
                 dispatch(createAction(STORE_PRODUCT_BY_ID, resp.data));
             })
             .catch((err) => console.error(err));
     };
 };
-
+export const addProducts = (product) => {
+    return (dispatch) => {
+        return axios
+            .post(API_PRODUCT,product)
+            .then((resp) => {
+                console.log(resp.data)
+                dispatch(createAction(STORE_PRODUCTS, resp.data));
+            })
+            .catch((err) => console.error(err));
+    };
+};
+export const updateProducts = (product) => {
+    return (dispatch) => {
+        return axios
+            .put(API_PRODUCT+"/"+product.id,product)
+            .then((resp) => {
+                console.log(resp.data)
+                dispatch(createAction(STORE_PRODUCTS, resp.data));
+            })
+            .catch((err) => console.error(err));
+    };
+};
 export const getSuppliers = () => {
     return (dispatch) => {
         return axios
             .get(API_SUPPLIER)
+            .then((resp) => {
+                dispatch(createAction(STORE_SUPPLIERS, resp.data));
+            })
+            .catch((err) => console.error(err));
+    };
+};
+export const addSuppliers = (supplier) => {
+    return (dispatch) => {
+        return axios
+            .post(API_SUPPLIER,supplier)
+            .then((resp) => {
+                dispatch(createAction(STORE_SUPPLIERS, resp.data));
+            })
+            .catch((err) => console.error(err));
+    };
+};
+export const updateSuppliers = (supplier) => {
+    return (dispatch) => {
+        return axios
+            .put(API_SUPPLIER,supplier)
             .then((resp) => {
                 dispatch(createAction(STORE_SUPPLIERS, resp.data));
             })

@@ -3,330 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
     Table, Tag, Button, Image, Avatar, Pagination, Modal, Form,
-    Input, Select, DatePicker, Switch
+    Input, Select, DatePicker, Switch, InputNumber
 } from 'antd';
-import { getProducts } from '../../redux/action/actProduct';
+import { addProducts, getProductById, getProducts, updateProducts } from '../../redux/action/actProduct';
 import moment from 'moment';
 
 const ListProduct = () => {
     const dispatch = useDispatch();
-    // const listProductFromStore = useSelector((state) => state.products);
-    const listProductFromStore = [
-        {
-            "id": 1,
-            "name": "product name change",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 1",
-            "tax": 0.0,
-            "description": "description 1",
-            "material": "material 1",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:27.8175276",
-            "supplierId": 1
-        },
-        {
-            "id": 2,
-            "name": "product name 2",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 2",
-            "tax": 0.0,
-            "description": "description 2",
-            "material": "material 2",
-            "active": true,
-            "createdAt": "2021-12-06T21:08:28.0449169",
-            "supplierId": 2
-        },
-        {
-            "id": 3,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 4,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 32342349,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 89877,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 343223,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 423423,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 323423,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 432423,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 3234234,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 45252,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 32524,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 425221,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 1233,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 1234,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 3123,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 123124,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 1233123,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 78774,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 57563,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 5684,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        },
-        {
-            "id": 5866583,
-            "name": "product name 3",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 3",
-            "tax": 0.0,
-            "description": "description 3",
-            "material": "material 3",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0728513",
-            "supplierId": 3
-        },
-        {
-            "id": 5865864,
-            "name": "product name 4",
-            "price": 0.0,
-            "discount": 0.0,
-            "origin": "origin 4",
-            "tax": 0.0,
-            "description": "description 4",
-            "material": "material 4",
-            "active": false,
-            "createdAt": "2021-12-06T21:08:28.0838414",
-            "supplierId": 4
-        }
-    ];
+    const listProductFromStore = useSelector((state) => state.products);
+    const productFromStore = useSelector((state) => state.productById);
+
     useEffect(() => {
         dispatch(getProducts())
+        dispatch(getProductById(1))
     }, [])
     const columns = [
         {
@@ -404,15 +93,21 @@ const ListProduct = () => {
         setcheckSelectModal(false)
     };
     const showModal = (product) => {
-        product.createdAt = moment(product.createdAt)
-        setselectedProduct(product)
-        settitleOfModal("Chi tiết sản phẩm: " + product.name)
+        dispatch(getProductById(product.id))
+
+        console.log(productFromStore.product)
+
+
+        productFromStore.product.createdAt = moment(productFromStore.product.createdAt)
+        settitleOfModal("Chi tiết sản phẩm: " + productFromStore.product.name)
         setcheckSelectModal(true)
+        // setselectedProduct(productFromStore.product)
+        // console.log(selectedProduct)
 
     };
     const onFormSubmit = (values) => {
         values.createdAt = values.createdAt.format("YYYY-MM-DD HH:mm:ss")
-
+        dispatch(updateProducts(values))
         console.log(values)
 
     };
@@ -442,7 +137,7 @@ const ListProduct = () => {
     };
     const onFormSubmitAddModal = (values) => {
         values.createdAt = values.createdAt.format("YYYY-MM-DD HH:mm:ss")
-
+        dispatch(addProducts(values))
         console.log(values)
 
     };
@@ -456,7 +151,7 @@ const ListProduct = () => {
             type="primary"
             key="submit" htmlType="submit"
         >
-            &nbsp;Thêm nhà cung cấp
+            &nbsp;Thêm sản phẩm
         </Button>]
     return (
         <div>
@@ -476,42 +171,67 @@ const ListProduct = () => {
                         labelCol={{ span: 6 }}
                         wrapperCol={{ span: 20 }}
                         layout="horizontal"
-                        initialValues={selectedProduct}
+                        initialValues={productFromStore.product}
                         onFinish={onFormSubmit}
                     >
 
 
+                        <Form.Item label="Mã sản phẩm :" name="id">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Tên sản phẩm:" name="name"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Giá:" name="price"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
 
-                        <Form.Item label="Tên sản phẩm:" name="name">
+                            <InputNumber />
+                        </Form.Item>
+                        <Form.Item label="Khuyến mãi:" name="discount"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
+                            <InputNumber />
+                        </Form.Item>
+                        <Form.Item label="Thuế:" name="tax"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
+                            <InputNumber />
+                        </Form.Item>
+                        <Form.Item label="Nguyên liệu:" name="material"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Giá:" name="price">
+                        <Form.Item label="Nguồn gốc:" name="origin"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Khuyến mãi:" name="discount">
+                        <Form.Item label="Thông tin:" name="description"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Thuế:" name="tax">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Nguyên liệu:" name="material">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Nguồn gốc:" name="origin">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Thông tin:" name="description">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Ngày tạo:" name="createdAt">
+                        <Form.Item label="Ngày tạo:" name="createdAt"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <DatePicker format={dateFormat} />
                         </Form.Item>
-                        <Form.Item label="" name="id" style={{ display: 'none' }}>
+
+                        <Form.Item label="Nhà cung cấp" name="supplierId" style={{ display: 'none' }}
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Input type="hidden" />
                         </Form.Item>
-                        <Form.Item name="active" label="Trạng thái" >
+                        <Form.Item name="active" label="Trạng thái"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Switch defaultChecked={selectedProduct.active} />
                         </Form.Item>
+
 
 
 
@@ -539,35 +259,59 @@ const ListProduct = () => {
                     >
 
 
+                        <Form.Item label="Mã sản phẩm :" name="id">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Tên sản phẩm:" name="name"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item label="Giá:" name="price"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
 
-                        <Form.Item label="Tên sản phẩm:" name="name">
+                            <InputNumber />
+                        </Form.Item>
+                        <Form.Item label="Khuyến mãi:" name="discount"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
+                            <InputNumber />
+                        </Form.Item>
+                        <Form.Item label="Thuế:" name="tax"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
+                            <InputNumber />
+                        </Form.Item>
+                        <Form.Item label="Nguyên liệu:" name="material"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Giá:" name="price">
+                        <Form.Item label="Nguồn gốc:" name="origin"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Khuyến mãi:" name="discount">
+                        <Form.Item label="Thông tin:" name="description"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Thuế:" name="tax">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Nguyên liệu:" name="material">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Nguồn gốc:" name="origin">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Thông tin:" name="description">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Ngày tạo:" name="createdAt">
+                        <Form.Item label="Ngày tạo:" name="createdAt"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <DatePicker format={dateFormat} />
                         </Form.Item>
-                        <Form.Item label="" name="id" style={{ display: 'none' }}>
+
+                        <Form.Item label="Nhà cung cấp" name="supplierId" style={{ display: 'none' }}
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Input type="hidden" />
                         </Form.Item>
-                        <Form.Item name="active" label="Trạng thái" >
+                        <Form.Item name="active" label="Trạng thái"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback>
                             <Switch defaultChecked={selectedProduct.active} />
                         </Form.Item>
 

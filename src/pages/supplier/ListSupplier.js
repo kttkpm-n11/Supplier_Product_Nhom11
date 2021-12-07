@@ -5,7 +5,7 @@ import {
     Table, Tag, Button, Image, Avatar, Pagination, Modal, Form,
     Input, Select, DatePicker, Switch
 } from 'antd';
-import { getSuppliers } from '../../redux/action/actProduct';
+import { getSuppliers, updateSuppliers } from '../../redux/action/actProduct';
 
 const ListSupplier = () => {
     const dispatch = useDispatch();
@@ -111,7 +111,7 @@ const ListSupplier = () => {
 
     };
     const onFormSubmit = (values) => {
-
+        dispatch(updateSuppliers(values))
         console.log(values)
 
     };
@@ -180,6 +180,9 @@ const ListSupplier = () => {
 
 
 
+                        <Form.Item label="Mã nhà cung cấp :" name="id">
+                            <Input />
+                        </Form.Item>
                         <Form.Item label="Tên :" name="name">
                             <Input />
                         </Form.Item>
