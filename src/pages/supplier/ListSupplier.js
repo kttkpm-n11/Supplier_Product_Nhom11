@@ -9,44 +9,8 @@ import { getSuppliers, updateSuppliers } from '../../redux/action/actProduct';
 
 const ListSupplier = () => {
     const dispatch = useDispatch();
-    // const listSuppliersFromStore = useSelector((state) => state.suppliers);
-    const listSupplierFromStore = [
-        {
-            "id": 1,
-            "name": "supplier 1",
-            "email": "email supplier 1",
-            "address": "address supplier 1",
-            "phone": "phone supplier 1"
-        },
-        {
-            "id": 2,
-            "name": "supplier 2",
-            "email": "email supplier 2",
-            "address": "address supplier 2",
-            "phone": "phone supplier 2"
-        },
-        {
-            "id": 3,
-            "name": "supplier 3",
-            "email": "email supplier 3",
-            "address": "address supplier 3",
-            "phone": "phone supplier 3"
-        },
-        {
-            "id": 4,
-            "name": "supplier 4",
-            "email": "email supplier 4",
-            "address": "address supplier 4",
-            "phone": "phone supplier 4"
-        },
-        {
-            "id": 5,
-            "name": "supplier 1",
-            "email": "email supplier 1",
-            "address": "address supplier 1",
-            "phone": "phone supplier 1"
-        }
-    ]
+    const listSuppliersFromStore = useSelector((state) => state.suppliers);
+   
     useEffect(() => {
         dispatch(getSuppliers())
     }, [])
@@ -160,7 +124,7 @@ const ListSupplier = () => {
     return (
         <div >
             <div className="text-end" ><Button onClick={() => showModalAdd()} type="primary" icon={<i className="fas fa-plus-circle"></i>}> &nbsp;Thêm nhà cung cấp</Button></div>
-            <Table style={{ marginTop: '15px' }} rowKey="id" columns={columns} dataSource={listSupplierFromStore} pagination={false} scroll={{ y: 850 }} />
+            <Table style={{ marginTop: '15px' }} rowKey="id" columns={columns} dataSource={listSuppliersFromStore} pagination={false} scroll={{ y: 850 }} />
             {checkSelectModal && <Modal closable={false}
                 style={{ top: 20 }}
                 title={titleOfModal}

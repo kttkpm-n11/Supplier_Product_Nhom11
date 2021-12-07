@@ -11,12 +11,14 @@ import moment from 'moment';
 const ListProduct = () => {
     const dispatch = useDispatch();
     const listProductFromStore = useSelector((state) => state.products);
+    const listProduct = listProductFromStore
+    
     const productFromStore = useSelector((state) => state.productById);
-
+    const [isNeedRerender, setisNeedRerender] = useState(false)
     useEffect(() => {
         dispatch(getProducts())
-        dispatch(getProductById(1))
-    }, [])
+        // dispatch(getProductById(1))
+    }, [isNeedRerender])
     const columns = [
         {
             title: 'ID',
@@ -106,8 +108,15 @@ const ListProduct = () => {
 
     };
     const onFormSubmit = (values) => {
-        values.createdAt = values.createdAt.format("YYYY-MM-DD HH:mm:ss")
+        values.createdAt = values.createdAt.format("YYYY-MM-DDTHH:mm:ss")
         dispatch(updateProducts(values))
+        .then(res =>{
+            handleCancel()
+            setisNeedRerender(true)
+        })
+        .catch(res=>{
+            handleCancel()
+        })
         console.log(values)
 
     };
@@ -136,9 +145,15 @@ const ListProduct = () => {
         setisShowAddModal(true)
     };
     const onFormSubmitAddModal = (values) => {
-        values.createdAt = values.createdAt.format("YYYY-MM-DD HH:mm:ss")
+        values.createdAt = values.createdAt.format("YYYY-MM-DDTHH:mm:ss")
         dispatch(addProducts(values))
-        console.log(values)
+        .then(res =>{
+            handleCancelAddModal()
+        })
+        .catch(res=>{
+            handleCancelAddModal()
+        })
+        setisNeedRerender(true)
 
     };
     const footerOfAddModal = [
@@ -157,7 +172,7 @@ const ListProduct = () => {
         <div>
             <div className="text-end" ><Button onClick={() => showModalAdd()} type="primary" icon={<i className="fas fa-plus-circle"></i>}> &nbsp;Thêm sản phẩm </Button></div>
 
-            <Table style={{ marginTop: '15px' }} rowKey="id" columns={columns} dataSource={listProductFromStore} pagination={false} scroll={{ y: 850 }} />
+            <Table style={{ marginTop: '15px' }} rowKey="id" columns={columns} dataSource={listProduct} pagination={false} scroll={{ y: 850 }} />
             {checkSelectModal && <Modal closable={false}
                 style={{ top: 20 }}
                 title={titleOfModal}
@@ -259,9 +274,7 @@ const ListProduct = () => {
                     >
 
 
-                        <Form.Item label="Mã sản phẩm :" name="id">
-                            <Input />
-                        </Form.Item>
+                       
                         <Form.Item label="Tên sản phẩm:" name="name"
                             rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
                             hasFeedback>
@@ -299,19 +312,17 @@ const ListProduct = () => {
                             <Input />
                         </Form.Item>
                         <Form.Item label="Ngày tạo:" name="createdAt"
-                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
-                            hasFeedback>
+                            >
                             <DatePicker format={dateFormat} />
                         </Form.Item>
 
-                        <Form.Item label="Nhà cung cấp" name="supplierId" style={{ display: 'none' }}
+                        <Form.Item label="Nhà cung cấp" name="supplierId" 
                             rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
                             hasFeedback>
-                            <Input type="hidden" />
+                            <Input  />
                         </Form.Item>
                         <Form.Item name="active" label="Trạng thái"
-                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
-                            hasFeedback>
+                           >
                             <Switch defaultChecked={selectedProduct.active} />
                         </Form.Item>
 

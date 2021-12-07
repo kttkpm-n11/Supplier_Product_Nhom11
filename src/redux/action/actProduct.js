@@ -25,7 +25,7 @@ export const getProductById = (productId) => {
         return axios
             .get(API_PRODUCT + `/${productId}`)
             .then((resp) => {
-                // console.log(resp.data.product)
+                console.log(resp.data.product)
                 dispatch(createAction(STORE_PRODUCT_BY_ID, resp.data));
             })
             .catch((err) => console.error(err));
@@ -37,7 +37,7 @@ export const addProducts = (product) => {
             .post(API_PRODUCT,product)
             .then((resp) => {
                 console.log(resp.data)
-                dispatch(createAction(STORE_PRODUCTS, resp.data));
+                // dispatch(createAction(STORE_PRODUCTS, resp.data));
             })
             .catch((err) => console.error(err));
     };
@@ -47,8 +47,7 @@ export const updateProducts = (product) => {
         return axios
             .put(API_PRODUCT+"/"+product.id,product)
             .then((resp) => {
-                console.log(resp.data)
-                dispatch(createAction(STORE_PRODUCTS, resp.data));
+               
             })
             .catch((err) => console.error(err));
     };
