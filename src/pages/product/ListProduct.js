@@ -5,19 +5,23 @@ import {
     Table, Tag, Button, Image, Avatar, Pagination, Modal, Form,
     Input, Select, DatePicker, Switch, InputNumber
 } from 'antd';
-import { addProducts, getProductById, getProducts, updateProducts } from '../../redux/action/actProduct';
+import { addProducts, deleteProducts, getProductById, getProducts, getSuppliers, updateProducts } from '../../redux/action/actProduct';
 import moment from 'moment';
+import { Option } from 'antd/lib/mentions';
 
 const ListProduct = () => {
     const dispatch = useDispatch();
+
+    const listSuppliersFromStore = useSelector((state) => state.suppliers);
     const listProductFromStore = useSelector((state) => state.products);
     const listProduct = listProductFromStore
-    
+
     const productFromStore = useSelector((state) => state.productById);
     const [isNeedRerender, setisNeedRerender] = useState(false)
     useEffect(() => {
         dispatch(getProducts())
-        // dispatch(getProductById(1))
+        dispatch(getProductById(1))
+        dispatch(getSuppliers())
     }, [isNeedRerender])
     const columns = [
         {
@@ -85,39 +89,43 @@ const ListProduct = () => {
 
     ]
 
-    const [selectedProduct, setselectedProduct] = useState({})
     const dateFormat = 'YYYY-MM-DD ';
     const [checkSelectModal, setcheckSelectModal] = useState(false)
     const [titleOfModal, settitleOfModal] = useState("title")
-
+    const [selectedProduct, setselectedProduct] = useState({})
     const handleCancel = () => {
         setselectedProduct({})
         setcheckSelectModal(false)
     };
     const showModal = (product) => {
         dispatch(getProductById(product.id))
+        console.log(product)
+        setselectedProduct(product)
 
-        console.log(productFromStore.product)
-
-
-        productFromStore.product.createdAt = moment(productFromStore.product.createdAt)
-        settitleOfModal("Chi tiết sản phẩm: " + productFromStore.product.name)
+        product.createdAt = moment(product.createdAt)
+        settitleOfModal("Chi tiết sản phẩm: " + product.name)
         setcheckSelectModal(true)
-        // setselectedProduct(productFromStore.product)
-        // console.log(selectedProduct)
+
+
+
+
+
 
     };
     const onFormSubmit = (values) => {
         values.createdAt = values.createdAt.format("YYYY-MM-DDTHH:mm:ss")
         dispatch(updateProducts(values))
-        .then(res =>{
-            handleCancel()
-            setisNeedRerender(true)
-        })
-        .catch(res=>{
-            handleCancel()
-        })
-        console.log(values)
+            .then(res => {
+                console.log(values)
+
+                handleCancel()
+                setisNeedRerender(true)
+
+            })
+            .catch(res => {
+                handleCancel()
+            })
+
 
     };
     const footerOfDetailModal = [
@@ -147,15 +155,25 @@ const ListProduct = () => {
     const onFormSubmitAddModal = (values) => {
         values.createdAt = values.createdAt.format("YYYY-MM-DDTHH:mm:ss")
         dispatch(addProducts(values))
+            .then(res => {
+                handleCancelAddModal()
+            })
+            .catch(res => {
+                handleCancelAddModal()
+            })
+        setisNeedRerender(true)
+
+    };
+    const onDelete = (product) => {
+        dispatch(deleteProducts(product))
         .then(res =>{
             handleCancelAddModal()
         })
         .catch(res=>{
-            handleCancelAddModal()
+            // handleCancelAddModal()
         })
-        setisNeedRerender(true)
-
-    };
+        console.log(product)
+    }
     const footerOfAddModal = [
         <Button key="back" onClick={() => handleCancelAddModal()}>
 
@@ -186,7 +204,7 @@ const ListProduct = () => {
                         labelCol={{ span: 6 }}
                         wrapperCol={{ span: 20 }}
                         layout="horizontal"
-                        initialValues={productFromStore.product}
+                        initialValues={selectedProduct}
                         onFinish={onFormSubmit}
                     >
 
@@ -236,23 +254,33 @@ const ListProduct = () => {
                             <DatePicker format={dateFormat} />
                         </Form.Item>
 
-                        <Form.Item label="Nhà cung cấp" name="supplierId" style={{ display: 'none' }}
+                        {/* <Form.Item label="Nhà cung cấp" name="supplierId" style={{ display: 'none' }}
                             rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
                             hasFeedback>
                             <Input type="hidden" />
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item name="active" label="Trạng thái"
                             rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
                             hasFeedback>
                             <Switch defaultChecked={selectedProduct.active} />
                         </Form.Item>
 
+                        <Form.Item label="Nhà cung cấp" name="supplierId" rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]} hasFeedback>
+                            <Select name="supplierId" style={{ width: '100%' }} >
+                                {
 
+
+                                    listSuppliersFromStore.map((supplier, id) => {
+                                        return <Option key={id} value={supplier.id}>{supplier.name}</Option>
+                                    })
+                                }
+                            </Select>
+                        </Form.Item>
 
 
 
                     </Form>
-                    <Button type="primary" icon={<i className="fas fa-ban"></i>} danger style={{ width: "100%" }} > &nbsp; Xoá sản phẩm</Button>
+                    <Button onClick={() => onDelete(selectedProduct)} type="primary" icon={<i className="fas fa-ban"></i>} danger style={{ width: "100%" }} > &nbsp; Xoá sản phẩm</Button>
                 </div>
             </Modal>}
 
@@ -274,7 +302,7 @@ const ListProduct = () => {
                     >
 
 
-                       
+
                         <Form.Item label="Tên sản phẩm:" name="name"
                             rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
                             hasFeedback>
@@ -312,20 +340,27 @@ const ListProduct = () => {
                             <Input />
                         </Form.Item>
                         <Form.Item label="Ngày tạo:" name="createdAt"
-                            >
+                        >
                             <DatePicker format={dateFormat} />
                         </Form.Item>
 
-                        <Form.Item label="Nhà cung cấp" name="supplierId" 
-                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
-                            hasFeedback>
-                            <Input  />
-                        </Form.Item>
+                       
                         <Form.Item name="active" label="Trạng thái"
-                           >
+                        >
                             <Switch defaultChecked={selectedProduct.active} />
                         </Form.Item>
 
+                        <Form.Item label="Nhà cung cấp" name="supplierId" rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]} hasFeedback >
+                            <Select name="supplierId" style={{ width: '100%' }}  >
+                                {
+
+
+                                    listSuppliersFromStore.map((supplier, id) => {
+                                        return <Option key={id} value={supplier.id}>{supplier.name}</Option>
+                                    })
+                                }
+                            </Select>
+                        </Form.Item>
 
 
 

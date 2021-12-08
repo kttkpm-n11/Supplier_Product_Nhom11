@@ -25,7 +25,7 @@ export const getProductById = (productId) => {
         return axios
             .get(API_PRODUCT + `/${productId}`)
             .then((resp) => {
-                console.log(resp.data.product)
+                
                 dispatch(createAction(STORE_PRODUCT_BY_ID, resp.data));
             })
             .catch((err) => console.error(err));
@@ -45,7 +45,30 @@ export const addProducts = (product) => {
 export const updateProducts = (product) => {
     return (dispatch) => {
         return axios
-            .put(API_PRODUCT+"/"+product.id,product)
+            .put(API_PRODUCT+`/${product.id}`,product)
+            .then((resp) => {
+                updateProductForCache(product)
+                console.log(resp.data)
+
+            })
+            .catch((err) => console.error(err));
+    };
+};
+export const updateProductForCache = (product) => {
+    return (dispatch) => {
+        return axios
+            .put(API_PRODUCT+`/put/${product.id}`,product)
+            .then((resp) => {
+                console.log(resp.data)
+
+            })
+            .catch((err) => console.error(err));
+    };
+};
+export const deleteProducts = (product) => {
+    return (dispatch) => {
+        return axios
+            .delete(API_PRODUCT+ `${product.id}`)
             .then((resp) => {
                
             })
@@ -82,6 +105,7 @@ export const updateSuppliers = (supplier) => {
             .catch((err) => console.error(err));
     };
 };
+
 
 export const getSupplierById = (supplierId) => {
     return (dispatch) => {
