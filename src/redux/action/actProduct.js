@@ -90,7 +90,7 @@ export const addSuppliers = (supplier) => {
         return axios
             .post(API_SUPPLIER,supplier)
             .then((resp) => {
-                dispatch(createAction(STORE_SUPPLIERS, resp.data));
+
             })
             .catch((err) => console.error(err));
     };
@@ -98,9 +98,8 @@ export const addSuppliers = (supplier) => {
 export const updateSuppliers = (supplier) => {
     return (dispatch) => {
         return axios
-            .put(API_SUPPLIER,supplier)
+            .put(API_SUPPLIER+ `/${supplier.id}`,supplier)
             .then((resp) => {
-                dispatch(createAction(STORE_SUPPLIERS, resp.data));
             })
             .catch((err) => console.error(err));
     };
@@ -113,6 +112,16 @@ export const getSupplierById = (supplierId) => {
             .get(API_SUPPLIER + `/${supplierId}`)
             .then((resp) => {
                 dispatch(createAction(STORE_SUPPLIER_BY_ID, resp.data));
+            })
+            .catch((err) => console.error(err));
+    };
+};
+
+export const deleteSupplierById = (supplierId) => {
+    return (dispatch) => {
+        return axios
+            .delete(API_SUPPLIER + `/${supplierId}`)
+            .then((resp) => {
             })
             .catch((err) => console.error(err));
     };

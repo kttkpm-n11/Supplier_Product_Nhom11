@@ -5,15 +5,16 @@ import {
     Table, Tag, Button, Image, Avatar, Pagination, Modal, Form,
     Input, Select, DatePicker, Switch
 } from 'antd';
-import { getSuppliers, updateSuppliers } from '../../redux/action/actProduct';
+import { addSuppliers, deleteSupplierById, getSuppliers, updateSuppliers } from '../../redux/action/actProduct';
 
 const ListSupplier = () => {
     const dispatch = useDispatch();
     const listSuppliersFromStore = useSelector((state) => state.suppliers);
-   
+    const [isNeedRerender, setisNeedRerender] = useState(false)
     useEffect(() => {
         dispatch(getSuppliers())
-    }, [])
+        setisNeedRerender(false)
+    }, [isNeedRerender])
 
     const columns = [
         {
@@ -41,8 +42,8 @@ const ListSupplier = () => {
         },
         {
             title: 'Số điện thoại',
-            dataIndex: 'address',
-            key: 'address',
+            dataIndex: 'phone',
+            key: 'phone',
 
             // width: '20%'
         },
@@ -76,9 +77,21 @@ const ListSupplier = () => {
     };
     const onFormSubmit = (values) => {
         dispatch(updateSuppliers(values))
+        .then(res =>{
+            
+            handleCancel()
+            setisNeedRerender(true)
+        })
         console.log(values)
 
     };
+    const onDelete = (supplierId) =>{
+        dispatch(deleteSupplierById(supplierId))
+        .then(res =>{
+            handleCancel()
+            setisNeedRerender(true)
+        })
+    }
     const footerOfDetailModal = [
         <Button key="back" onClick={() => handleCancel()}>
 
@@ -103,7 +116,14 @@ const ListSupplier = () => {
         setisShowAddModal(true)
     };
     const onFormSubmitAddModal = (values) => {
+        dispatch(addSuppliers(values))
+        .then(res =>{
+            handleCancelAddModal()
+            setisNeedRerender(true)
+        })
+        .catch(res =>{
 
+        })
         console.log(values)
 
     };
@@ -135,7 +155,7 @@ const ListSupplier = () => {
 
 
                     <Form id="detailForm"
-                        labelCol={{ span: 6 }}
+                        labelCol={{ span: 7 }}
                         wrapperCol={{ span: 20 }}
                         layout="horizontal"
                         initialValues={selectedSupplier}
@@ -144,19 +164,34 @@ const ListSupplier = () => {
 
 
 
-                        <Form.Item label="Mã nhà cung cấp :" name="id">
+                        <Form.Item label="Mã nhà cung cấp :" name="id"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback
+                        >
+                            <Input disabled />
+                        </Form.Item>
+                        <Form.Item label="Tên :" name="name"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback
+                        >
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Tên :" name="name">
+                        <Form.Item label="Email:" name="email"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback
+                        >
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Email:" name="email">
+                        <Form.Item label="Địa chỉ: " name="address"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback
+                        >
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Địa chỉ: " name="address">
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Số điện thoại:" name="phone">
+                        <Form.Item label="Số điện thoại:" name="phone"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback
+                        >
                             <Input />
                         </Form.Item>
 
@@ -164,7 +199,7 @@ const ListSupplier = () => {
 
 
                     </Form>
-                    <Button type="primary" icon={<i className="fas fa-ban"></i>} danger style={{ width: "100%" }} > &nbsp; Xoá sản phẩm</Button>
+                    <Button onClick={()=> onDelete(selectedSupplier.id)} type="primary" icon={<i className="fas fa-ban"></i>} danger style={{ width: "100%" }} > &nbsp; Xoá nhà cung cấp</Button>
                 </div>
             </Modal>}
 
@@ -179,7 +214,7 @@ const ListSupplier = () => {
 
 
                     <Form id="AddForm"
-                        labelCol={{ span: 6 }}
+                        labelCol={{ span: 7  }}
                         wrapperCol={{ span: 20 }}
                         layout="horizontal"
                         onFinish={onFormSubmitAddModal}
@@ -187,19 +222,31 @@ const ListSupplier = () => {
 
 
 
-                        <Form.Item label="Tên :" name="name">
+                       
+                        <Form.Item label="Tên :" name="name"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback
+                        >
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Email:" name="email">
+                        <Form.Item label="Email:" name="email"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback
+                        >
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Địa chỉ: " name="address">
+                        <Form.Item label="Địa chỉ: " name="address"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback
+                        >
                             <Input />
                         </Form.Item>
-                        <Form.Item label="Số điện thoại:" name="phone">
+                        <Form.Item label="Số điện thoại:" name="phone"
+                            rules={[{ required: true, message: "Thuộc tính này là bắt buộc!" },]}
+                            hasFeedback
+                        >
                             <Input />
                         </Form.Item>
-
 
 
 

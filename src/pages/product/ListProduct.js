@@ -22,6 +22,8 @@ const ListProduct = () => {
         dispatch(getProducts())
         dispatch(getProductById(1))
         dispatch(getSuppliers())
+        setisNeedRerender(false)
+
     }, [isNeedRerender])
     const columns = [
         {
@@ -361,7 +363,7 @@ const ListProduct = () => {
                                 }
                             </Select>
                         </Form.Item>
-
+                    
 
 
                     </Form>
