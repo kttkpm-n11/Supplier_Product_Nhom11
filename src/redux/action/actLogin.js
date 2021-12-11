@@ -5,7 +5,7 @@ import {
     SET_MESSAGE_FROM_SERVER,
     STORE_PHONE_AND_PASSWORD_WHEN_LOGIN,
 } from "../constants/constants";
-import {API_SIGN_UP } from "../constants/api";
+import { API_SIGN_UP } from "../constants/api";
 import LoginService from "../../services/LoginService";
 import axios from "axios";
 
@@ -22,37 +22,17 @@ export const login = (user) => {
     return (dispatch) => {
         return LoginService.login(user)
             .then((resp) => {
-                if (resp.data.roles.includes('ROLE_ADMIN')) {
-                    dispatch({
-                        type: CLEAR_MESSAGE_FROM_SERVER,
-                    });
-
-                    dispatch({
-                        type: LOGIN_SUCCESSFUL,
-                        user: resp.data,
-                    });
-                    return Promise.resolve();
-                }
-                else {
-                    const MESSAGE = 'BẠN KHÔNG CÓ QUYỂN TRUY CẬP!'
-                    dispatch({
-                        type: SET_MESSAGE_FROM_SERVER,
-                        message: MESSAGE,
-                    });
-
-                    dispatch({
-                        type: LOGIN_FAILED,
-                    });
-                    return Promise.reject(MESSAGE);
-                }
-
+                dispatch({
+                    type: LOGIN_SUCCESSFUL
+                })
+                return Promise.resolve();
             })
             .catch((err) => {
                 let MESSAGE =
                     (err.response && err.response.data && err.response.data.message) ||
                     err.message ||
                     err.toString();
-                    if(MESSAGE==='Access denied') MESSAGE = 'Bạn không có quyền truy cập!'  
+           
                 dispatch({
                     type: SET_MESSAGE_FROM_SERVER,
                     message: MESSAGE,
@@ -67,14 +47,15 @@ export const login = (user) => {
     };
 };
 export const register = (user) => {
-    return axios.post(API_SIGN_UP, user)
-    .then(() => {
-        return Promise.resolve()
-    })
-    .catch(() => {
-        return Promise.reject()
-    })
-}
+    return axios
+        .post(API_SIGN_UP, user)
+        .then(() => {
+            return Promise.resolve();
+        })
+        .catch(() => {
+            return Promise.reject();
+        });
+};
 
 export const logout = () => {
     return (dispatch) => {
@@ -91,7 +72,7 @@ export const logout = () => {
                     (err.response && err.response.data && err.response.data.message) ||
                     err.message ||
                     err.toString();
-                
+
                 dispatch({
                     type: SET_MESSAGE_FROM_SERVER,
                     message: MESSAGE,
@@ -101,4 +82,3 @@ export const logout = () => {
             });
     };
 };
-

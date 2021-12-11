@@ -1,5 +1,5 @@
 import { Card, Col, Modal, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Form, Input, Button } from "antd";
 import { useHistory } from "react-router";
@@ -9,19 +9,26 @@ import { StopOutlined } from "@ant-design/icons";
 
 const LoginPage = () => {
     const fullWidthStyle = { margin: "10px", height: "150px" };
-    let history = useHistory();
+    const history = useHistory();
     const dispatch = useDispatch();
     const authentication = useSelector((state) => state.authentication);
+
+    useEffect(() => {
+        const token = JSON.stringify(localStorage.getItem("accessToken"));
+
+        if (token) history.push("/dashboard");
+    }, [history]);
+
     const loginHandle = (userLogin) => {
         dispatch(login(userLogin))
             .then(() => {
                 history.push("/dashboard");
             })
-            .catch((err) => {
+            .catch(() => {
                 Modal.error({
                     icon: <StopOutlined />,
                     title: <strong className="text-danger">Thông báo!</strong>,
-                    content: `Tài khoản không hợp lệ`,
+                    content: `đăng nhập không thành công!`,
                 });
             });
     };
@@ -34,7 +41,6 @@ const LoginPage = () => {
         console.log("Failed:", errorInfo);
     };
 
-    console.log(1);
     return (
         <div>
             {authentication.isLoggin === false ? (

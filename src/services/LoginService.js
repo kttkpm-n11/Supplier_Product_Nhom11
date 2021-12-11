@@ -5,18 +5,16 @@ function LoginService() {}
 
 LoginService.prototype = {
     login(user) {
+        console.log(API_SIGN_IN);
         return axios.post(API_SIGN_IN, user, { withCredentials: true }).then((resp) => {
-            const { accessToken } = resp.data;
-
-            if (resp.data.roles.includes("ROLE_ADMIN")) {
-                if (accessToken) {
-                    localStorage.setItem(accessToken);
-                    axios.interceptors.request.use(function (config) {
-                        const token = `Bearer ${accessToken}`;
-                        config.headers.Authorization = token;
-                        return config;
-                    });
-                }
+            const accessToken = resp.data;
+            if (accessToken) {
+                localStorage.setItem("accessToken", accessToken);
+                axios.interceptors.request.use(function (config) {
+                    const token = `Bearer ${accessToken}`;
+                    config.headers.Authorization = token;
+                    return config;
+                });
             }
             return resp;
         });
