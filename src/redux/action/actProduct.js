@@ -68,7 +68,7 @@ export const updateProductForCache = (product) => {
 export const deleteProducts = (product) => {
     return (dispatch) => {
         return axios
-            .delete(API_PRODUCT+ `${product.id}`)
+            .delete(API_PRODUCT+ `/${product.id}`)
             .then((resp) => {
                
             })

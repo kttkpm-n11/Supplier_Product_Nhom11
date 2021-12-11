@@ -3,38 +3,39 @@ import React from "react";
 
 import { Form, Input, Button } from "antd";
 import { useHistory } from "react-router";
-import { login } from "../redux/action/actLogin";
-import { useDispatch, useSelector } from "react-redux";
-import { StopOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
+import { CheckOutlined, StopOutlined } from "@ant-design/icons";
+import { register } from "../redux/action/actLogin";
 
-const LoginPage = () => {
+const Register = () => {
     const fullWidthStyle = { margin: "10px", height: "150px" };
     let history = useHistory();
-    const dispatch = useDispatch();
     const authentication = useSelector((state) => state.authentication);
-    const loginHandle = (userLogin) => {
-        dispatch(login(userLogin))
+    const loginHandle = (user) => {
+        register(user)
             .then(() => {
-                history.push("/dashboard");
+                Modal.info({
+                    icon: <CheckOutlined />,
+                    title: <strong className="text-danger">Thông báo</strong>,
+                    content: `Đăng ký thành công!`,
+                });
             })
             .catch((err) => {
-                Modal.error({
+                Modal.info({
                     icon: <StopOutlined />,
-                    title: <strong className="text-danger">Thông báo!</strong>,
-                    content: `Tài khoản không hợp lệ`,
+                    title: <strong className="text-danger">Có gì đó không ổn!</strong>,
+                    content: `Vui lòng thử lại sau!`,
                 });
             });
     };
 
-    const onFinish = (userLogin) => {
-        loginHandle(userLogin);
+    const onFinish = (user) => {
+        loginHandle(user);
     };
 
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
     };
-
-    console.log(1);
     return (
         <div>
             {authentication.isLoggin === false ? (
@@ -42,7 +43,7 @@ const LoginPage = () => {
                     <Col className="gutter-row" span={24} style={fullWidthStyle}></Col>
                     <Col className="gutter-row" span={6}></Col>
                     <Col className="gutter-row" span={12}>
-                        <Card title="Đăng nhập " bordered={true} hoverable={true}>
+                        <Card title="Đăng ký" bordered={true} hoverable={true}>
                             <Form
                                 name="basic"
                                 wrapperCol={{ span: 24 }}
@@ -86,21 +87,19 @@ const LoginPage = () => {
                                         htmlType="submit"
                                         style={{ marginRight: `1rem` }}
                                     >
-                                        Đăng nhập
+                                        Đăng Ký
                                     </Button>
-
                                     <Button
                                         type="secondary"
                                         className="btn btn-primary"
-                                        onClick={() => history.push("/register")}
+                                        onClick={() => history.push("/")}
                                     >
-                                        Đăng ký
+                                        Quay lại
                                     </Button>
                                 </Form.Item>
                             </Form>
                         </Card>
                     </Col>
-
                     <Col className="gutter-row" span={6}></Col>
                 </Row>
             ) : (
@@ -110,4 +109,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default Register;

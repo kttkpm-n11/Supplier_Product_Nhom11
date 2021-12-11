@@ -5,7 +5,7 @@ import {
     SET_MESSAGE_FROM_SERVER,
     STORE_PHONE_AND_PASSWORD_WHEN_LOGIN,
 } from "../constants/constants";
-import { API_GET_REFRESH_TOKEN, API_GET_USER_WHEN_EXISTS_REFRESH_TOKEN } from "../constants/api";
+import {API_SIGN_UP } from "../constants/api";
 import LoginService from "../../services/LoginService";
 import axios from "axios";
 
@@ -66,42 +66,15 @@ export const login = (user) => {
             });
     };
 };
-
-export const getTokenWhenRefreshPage = () => {
-    return async (dispatch) => {
-        const token = await axios
-            .get(API_GET_REFRESH_TOKEN, { withCredentials: true })
-            .then((resp) => {
-                axios.interceptors.request.use(function (config) {
-                    const token = `Bearer ${resp.data}`;
-                    config.headers.Authorization = token;
-                    return config;
-                });
-                return resp.data;
-            })
-            .catch(() => "");
-
-        //get user when have token
-        axios
-            .get(API_GET_USER_WHEN_EXISTS_REFRESH_TOKEN, { token })
-            .then((resp) => {
-                dispatch({
-                    type: LOGIN_SUCCESSFUL,
-                    user: { ...resp.data, accessToken: token },
-                });
-
-
-
-                return Promise.resolve();
-            })
-            .catch(() => {
-                dispatch({
-                    type: LOGIN_FAILED,
-                });
-                return Promise.reject();
-            });
-    };
-};
+export const register = (user) => {
+    return axios.post(API_SIGN_UP, user)
+    .then(() => {
+        return Promise.resolve()
+    })
+    .catch(() => {
+        return Promise.reject()
+    })
+}
 
 export const logout = () => {
     return (dispatch) => {
