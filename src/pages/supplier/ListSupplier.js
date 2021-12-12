@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    Table, Tag, Button, Image, Avatar, Pagination, Modal, Form,
-    Input, Select, DatePicker, Switch
+    Table,  Button, Modal, Form,
+    Input
 } from 'antd';
 import { addSuppliers, deleteSupplierById, getSuppliers, updateSuppliers } from '../../redux/action/actProduct';
 

@@ -49,7 +49,12 @@ const LoginPage = () => {
                     <Col className="gutter-row" span={24} style={fullWidthStyle}></Col>
                     <Col className="gutter-row" span={6}></Col>
                     <Col className="gutter-row" span={12}>
-                        <Card title="Đăng nhập " bordered={true} hoverable={true}>
+                       
+                        <Card title={<div className="row">
+                            <div className="col-2"> Đăng nhập</div>
+                            <div className="col-4"></div>
+                            <div className="col-5"><Button type="link" href="http://54.179.42.252:9000/products/docs/swagger-ui/">Swagger Sản phẩm</Button><Button type="link" href="http://54.179.42.252:9000/suppliers/docs/swagger-ui/">Swagger Nhà cung cấp</Button></div>
+                        </div>} bordered={true} hoverable={true} >
                             <Form
                                 name="basic"
                                 wrapperCol={{ span: 24 }}
@@ -93,7 +98,7 @@ const LoginPage = () => {
                                         htmlType="submit"
                                         style={{ marginRight: `1rem` }}
                                     >
-                                        Đăng nhập
+                                        ĐĂNG NHẬP
                                     </Button>
 
                                     <Button
@@ -110,6 +115,7 @@ const LoginPage = () => {
 
                     <Col className="gutter-row" span={6}></Col>
                 </Row>
+                
             ) : (
                 history.push("/dashbroad")
             )}

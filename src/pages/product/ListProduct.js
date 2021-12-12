@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-    Table, Tag, Button, Image, Avatar, Pagination, Modal, Form,
+    Table, Tag, Button, Modal, Form,
     Input, Select, DatePicker, Switch, InputNumber
 } from 'antd';
 import { addProducts, deleteProducts, getProductById, getProducts, getSuppliers, updateProducts } from '../../redux/action/actProduct';
@@ -16,7 +16,7 @@ const ListProduct = () => {
     const listProductFromStore = useSelector((state) => state.products);
     const listProduct = listProductFromStore
 
-    const productFromStore = useSelector((state) => state.productById);
+    // const productFromStore = useSelector((state) => state.productById);
     const [isNeedRerender, setisNeedRerender] = useState(false)
     useEffect(() => {
         dispatch(getProducts())
@@ -169,7 +169,8 @@ const ListProduct = () => {
     const onDelete = (product) => {
         dispatch(deleteProducts(product))
         .then(res =>{
-            handleCancelAddModal()
+            handleCancel()
+            setisNeedRerender(true)
         })
         .catch(res=>{
             // handleCancelAddModal()

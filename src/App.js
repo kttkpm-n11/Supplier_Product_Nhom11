@@ -3,11 +3,11 @@ import routes from "./routes";
 import "antd/dist/antd.css";
 import { ConfigProvider } from "antd";
 import viVN from "antd/lib/locale/vi_VN";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 
 function App() {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const maproutes = routes.map((route, index) => {
         return (
             <Route key={index} path={route.path} component={route.component} exact={route.exact} />
@@ -20,7 +20,6 @@ function App() {
             <ConfigProvider locale={viVN}>
                 {/* {isLoading && <Loading location="Loading...." /> } */}
                 <div className="App">
-                    {/* {authentication.isLoggin && <Header />} */}
                     <Switch>{maproutes}</Switch>
                 </div>
             </ConfigProvider>

@@ -1,7 +1,5 @@
-//const baseAPI = "http://localhost:9000"
 const baseAPI = "http://54.179.42.252:9000"
 
-//http://54.179.42.252:9000/api
 const api = baseAPI + '/api'
 export const API_PRODUCT = api + '/products'
 export const API_SUPPLIER =   api + '/suppliers'
