@@ -14,9 +14,10 @@ const LoginPage = () => {
     const authentication = useSelector((state) => state.authentication);
 
     useEffect(() => {
-        const token = JSON.stringify(localStorage.getItem("accessToken"));
-
-        if (token) history.push("/dashboard");
+        const token = JSON.stringify(sessionStorage.getItem("accessToken"));
+        if (token !== 'null') {
+            history.push("/dashboard");
+        }
     }, [history]);
 
     const loginHandle = (userLogin) => {
